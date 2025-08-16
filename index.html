@@ -4,163 +4,287 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rural Carrier Survival Guide</title>
+  <meta name="description" content="Practical tools & info for rural carriers — simple, accurate, and useful.">
   <style>
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --ink:#283039;
+      --muted:#6b7280;
+      --accent:#3b82f6;
+      --accent-dark:#1f6ae6;
+      --line:#e5e7eb;
+      --warn:#ef4444;
+      --ok:#10b981;
+    }
+    *{box-sizing:border-box}
     body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f5f7fa;
-      color: #333;
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height:1.5;
     }
-    header {
-      background: #2b3a67;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
+    header{
+      background: linear-gradient(180deg, #111827, #1f2937);
+      color:#fff;
+      padding:1.25rem;
+      text-align:center;
+      position:sticky;
+      top:0;
+      z-index:10;
+      border-bottom:1px solid #0b1220;
     }
-    header h1 { margin: 0; font-size: 1.8rem; }
-    nav {
-      background: #42527b;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+    header h1{margin:.2rem 0 .4rem;font-size:1.6rem}
+    header p{margin:0;font-size:.95rem;color:#d1d5db}
+    nav{
+      display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;
+      margin-top:.6rem;
     }
-    nav a {
-      color: #fff;
-      padding: 0.75rem 1rem;
-      text-decoration: none;
-      font-weight: bold;
+    nav a{
+      color:#e5e7eb;text-decoration:none;font-weight:600;
+      padding:.45rem .65rem;border:1px solid rgba(255,255,255,.15);
+      border-radius:.5rem;
     }
-    nav a:hover {
-      background: #2b3a67;
+    nav a:hover{background:rgba(255,255,255,.06)}
+    main{max-width:950px;margin:1rem auto;padding:0 1rem 3rem}
+    .card{
+      background:var(--card);border:1px solid var(--line);
+      border-radius:12px; padding:1rem;margin:0 0 1rem 0;
+      box-shadow:0 8px 20px rgba(17,24,39,.04);
     }
-    main { max-width: 900px; margin: auto; padding: 1rem; }
-    .countdown {
-      background: #fff;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      text-align: center;
+    .center{text-align:center}
+    h2{margin:.2rem 0 1rem}
+    table{width:100%;border-collapse:collapse}
+    th,td{border:1px solid var(--line);padding:.55rem;text-align:left;vertical-align:top}
+    th{background:#f3f4f6}
+    tr.missed td{background:#fff1f2}
+    .small{font-size:.9rem;color:var(--muted)}
+    .btn{
+      display:inline-block;background:var(--accent);color:#fff;text-decoration:none;
+      padding:.6rem .9rem;border-radius:.5rem;border:none;font-weight:700;cursor:pointer;
     }
-    .chart {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    .btn:hover{background:var(--accent-dark)}
+    input[type="number"], input[type="text"]{
+      width:100%;padding:.6rem;border:1px solid var(--line);border-radius:.5rem;
     }
-    .chart h2 {
-      margin-top: 0;
-      text-align: center;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 0.5rem;
-      text-align: left;
-    }
-    th {
-      background: #e4e7ec;
-    }
-    tr.missed td {
-      background: #ffe6e6;
-    }
-    form {
-      background: #fff;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 1.5rem;
-    }
-    textarea {
-      width: 100%;
-      min-height: 100px;
-      padding: 0.5rem;
-      margin-bottom: 0.5rem;
-      font-size: 1rem;
-    }
-    button {
-      background: #2b3a67;
-      color: #fff;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.85rem;
-      background: #f0f0f0;
-      color: #555;
-    }
+    .grid{display:grid;gap:.75rem}
+    @media(min-width:720px){ .grid.two{grid-template-columns:1fr 1fr} .grid.three{grid-template-columns:repeat(3,1fr)} }
+    .tag{display:inline-block;padding:.2rem .5rem;border:1px solid var(--line);border-radius:.4rem;color:var(--muted);font-size:.8rem;margin:.1rem .3rem 0 0}
+    footer{color:#6b7280;text-align:center;padding:1rem;font-size:.85rem}
+    .notice{border-left:4px solid var(--accent);padding:.6rem .8rem;background:#f0f7ff;border-radius:.5rem}
+    .danger{border-left:4px solid var(--warn);background:#fff5f5}
+    .success{border-left:4px solid var(--ok);background:#f0fff7}
+    .pill{display:inline-block;padding:.1rem .5rem;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-size:.8rem}
+    .muted{color:var(--muted)}
+    .sr-only{position:absolute;left:-9999px}
+    a.btn-link{color:var(--accent);text-decoration:none;font-weight:700}
   </style>
 </head>
 <body>
   <header>
     <h1>Rural Carrier Survival Guide</h1>
-    <p>Practical tools & info for rural carriers — simple, accurate, and useful.</p>
+    <p>Simple, accurate tools to protect your time and pay.</p>
+    <nav aria-label="Primary">
+      <a href="#home">Home</a>
+      <a href="#rrecs">RRECS Decoder (Beta)</a>
+      <a href="#contract">Contract Decoder</a>
+      <a href="#survey">Mini Mail Survey</a>
+      <a href="#suggestion">Suggestion Box</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
-  <nav>
-    <a href="#countdown">Survey Countdown</a>
-    <a href="#chart">What Counts</a>
-    <a href="#suggestion">Suggestion Box</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  <main>
-    <section id="countdown" class="countdown">
+
+  <main id="home">
+    <!-- Countdown -->
+    <section class="card center" id="countdown">
       <h2>Mini Mail Survey Countdown</h2>
-      <p id="timer"></p>
-      <small>Survey period: August 23 – September 6</small>
+      <p id="timer" style="font-size:1.4rem;font-weight:800"></p>
+      <p class="small muted">Survey period: <strong>August 23 – September 6, 2025</strong></p>
     </section>
 
-    <section id="chart" class="chart">
-      <h2>What Counts / What Doesn't</h2>
+    <!-- What counts table -->
+    <section class="card" id="survey">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;flex-wrap:wrap">
+        <h2 style="margin:0">What Counts / What Doesn’t</h2>
+        <span class="pill" id="lastUpdated"></span>
+      </div>
+      <p class="small muted">This quick table is a practical starter. We will replace it with a fully sourced chart from the official guide.</p>
       <table>
-        <tr><th>Counts</th><th>Doesn't Count</th></tr>
-        <tr><td>Parcels over 2 lbs</td><td>Stamped letters</td></tr>
-        <tr class="missed"><td>Second trips (often missed!)</td><td>Standard flats</td></tr>
-        <tr><td>Accountable mail</td><td>Unaddressed ad mail</td></tr>
-        <tr class="missed"><td>Large irregular parcels</td><td>Regular magazines</td></tr>
+        <tr><th>Counts (examples)</th><th>Doesn’t Count (examples)</th></tr>
+        <tr class="missed"><td>Second trips when required ✅ <em>(often missed)</em></td><td>Routine stamped letters ❌</td></tr>
+        <tr><td>Accountables / signatures ✅</td><td>Unaddressed saturation ads ❌</td></tr>
+        <tr class="missed"><td>Large irregular parcels ✅ <em>(flag these)</em></td><td>Regular magazines/flats already in base volume ❌</td></tr>
+        <tr><td>Deviations / detours ordered by management ✅</td><td>Personal stops ❌</td></tr>
       </table>
+      <p class="small muted">Note: Examples only — specifics vary by official rules. Use this as a reminder, not a final authority.</p>
     </section>
 
-    <section id="suggestion">
+    <!-- RRECS Decoder (Beta) -->
+    <section class="card" id="rrecs">
+      <h2>RRECS Decoder (Beta)</h2>
+      <p class="small muted">Illustrative only — not an official calculation. This helps you visualize your day and produce a personal record you can export.</p>
+      <div class="grid two">
+        <div>
+          <label>Total Route Miles</label>
+          <input type="number" id="miles" min="0" step="0.1" placeholder="e.g., 72.5">
+        </div>
+        <div>
+          <label>Total Stops (deliveries + parcels)</label>
+          <input type="number" id="stops" min="0" step="1" placeholder="e.g., 465">
+        </div>
+        <div>
+          <label>Driving Time (minutes)</label>
+          <input type="number" id="driveMin" min="0" step="1" placeholder="e.g., 310">
+        </div>
+        <div>
+          <label>Walking/Loops Time (minutes)</label>
+          <input type="number" id="walkMin" min="0" step="1" placeholder="e.g., 40">
+        </div>
+        <div>
+          <label>Parcels (count)</label>
+          <input type="number" id="parcels" min="0" step="1" placeholder="e.g., 120">
+        </div>
+        <div>
+          <label>Accountables (count)</label>
+          <input type="number" id="acct" min="0" step="1" placeholder="e.g., 6">
+        </div>
+      </div>
+      <div style="margin-top:.8rem;display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn" onclick="calc()">Calculate</button>
+        <button class="btn" onclick="downloadCSV()">Download CSV</button>
+        <span class="tag">Beta</span>
+        <span class="tag">Offline-friendly</span>
+      </div>
+      <div id="results" class="notice" style="margin-top:.8rem;display:none"></div>
+    </section>
+
+    <!-- Contract Decoder placeholder -->
+    <section class="card" id="contract">
+      <h2>Contract Decoder</h2>
+      <p>Plain-English summaries of the national agreement, with links to original language for proof. Coming soon.</p>
+      <div class="grid two">
+        <div class="card" style="margin:0">
+          <strong>Leave & Safety</strong>
+          <p class="small muted">Annual leave, sick leave, and safety protections for rural carriers.</p>
+        </div>
+        <div class="card" style="margin:0">
+          <strong>Route Eval & Pay</strong>
+          <p class="small muted">How evaluation works, steps, and what changes your pay.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Suggestion Box -->
+    <section class="card" id="suggestion">
       <h2>Suggestion Box (Anonymous)</h2>
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <textarea name="message" placeholder="Your suggestion..." required></textarea>
-        <button type="submit">Send</button>
+      <p class="small muted">No name or email required. If you want a reply, include an email in your message.</p>
+      <form action="https://formspree.io/f/mqaljvkw" method="POST">
+        <label class="sr-only" for="suggestionMessage">Your suggestion</label>
+        <textarea id="suggestionMessage" name="message" placeholder="Your suggestion..." required style="width:100%;min-height:120px;padding:.6rem;border:1px solid var(--line);border-radius:.5rem"></textarea>
+        <div style="margin-top:.5rem">
+          <button type="submit" class="btn">Send</button>
+        </div>
       </form>
+      <p class="small muted" style="margin-top:.5rem">Submissions go to ruralcarriersurvivalguide@proton.me. We’ll add a private Google Sheet backup shortly.</p>
     </section>
 
-    <section id="contact">
+    <!-- Contact -->
+    <section class="card" id="contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:ruralcarriersurvivalguide@proton.me">ruralcarriersurvivalguide@proton.me</a></p>
+      <p class="small muted">Response times may vary. This project is independent and community‑driven.</p>
     </section>
   </main>
+
   <footer>
-    *This site is independently created by and for rural carriers. It is not affiliated with or endorsed by the United States Postal Service or the National Rural Letter Carriers’ Association.*
+    <p>*This site is independently created by and for rural carriers. It is not affiliated with or endorsed by the United States Postal Service or the National Rural Letter Carriers’ Association.*</p>
   </footer>
 
   <script>
+    // Countdown
     function updateCountdown() {
-      const target = new Date("August 23, 2025").getTime();
+      const start = new Date("August 23, 2025 00:00:00").getTime();
       const now = new Date().getTime();
-      const diff = target - now;
-      if (diff < 0) {
-        document.getElementById("timer").innerText = "Survey is in progress!";
+      const diff = start - now;
+      const el = document.getElementById("timer");
+      if (!el) return;
+      if (diff <= 0) {
+        el.textContent = "Survey is in progress (Aug 23 – Sept 6).";
         return;
       }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      document.getElementById("timer").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const s = Math.floor((diff % (1000*60)) / 1000);
+      el.textContent = `${d}d ${h}h ${m}m ${s}s`;
     }
-    setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown, 1000); updateCountdown();
+
+    // Last updated tag
+    document.getElementById("lastUpdated").textContent = `Last updated: ${new Date().toLocaleDateString()}`;
+
+    // Simple illustrative RRECS-like calculator (NOT official)
+    function calc(){
+      const miles = parseFloat(document.getElementById('miles').value||0);
+      const stops = parseInt(document.getElementById('stops').value||0);
+      const driveMin = parseFloat(document.getElementById('driveMin').value||0);
+      const walkMin = parseFloat(document.getElementById('walkMin').value||0);
+      const parcels = parseInt(document.getElementById('parcels').value||0);
+      const acct = parseInt(document.getElementById('acct').value||0);
+
+      const totalMin = driveMin + walkMin;
+      const mph = miles > 0 && driveMin > 0 ? (miles / (driveMin/60)) : 0;
+      const avgStopSec = stops > 0 ? Math.round((totalMin*60)/stops) : 0;
+
+      // Simple illustrative time adders (NOT official RRECS!)
+      const parcelAdderMin = parcels * 0.25; // 15s per parcel (illustrative)
+      const acctAdderMin = acct * 0.75;     // 45s per accountable (illustrative)
+      const estWorkMin = totalMin + parcelAdderMin + acctAdderMin;
+
+      const results = document.getElementById('results');
+      results.style.display = 'block';
+      results.innerHTML = `
+        <strong>Summary</strong><br>
+        Total Minutes (entered): <b>${totalMin.toFixed(1)}</b><br>
+        Route Miles: <b>${miles.toFixed(1)}</b> • Avg Speed: <b>${mph.toFixed(1)} mph</b><br>
+        Stops: <b>${stops}</b> • Avg Time per Stop: <b>${avgStopSec}s</b><br>
+        Parcels: <b>${parcels}</b> • Accountables: <b>${acct}</b><br>
+        <hr style="border:none;border-top:1px solid var(--line)">
+        <div class="danger" style="padding:.5rem;border-radius:.5rem">
+          <strong>Important:</strong> This is a <em>beta</em> visualization, not the official RRECS formula.
+          Use it to keep personal records and sanity-check trends. We will replace adders with official factors.
+        </div>`;
+      window._calcData = {miles, stops, driveMin, walkMin, parcels, acct, totalMin, mph, avgStopSec, estWorkMin, timestamp: new Date().toISOString()};
+    }
+
+    function downloadCSV(){
+      const d = window._calcData;
+      if(!d){ alert('Please calculate first.'); return; }
+      const rows = [
+        ['Field','Value'],
+        ['Timestamp', d.timestamp],
+        ['Miles', d.miles],
+        ['Stops', d.stops],
+        ['DriveMinutes', d.driveMin],
+        ['WalkMinutes', d.walkMin],
+        ['Parcels', d.parcels],
+        ['Accountables', d.acct],
+        ['TotalMinutesEntered', d.totalMin],
+        ['AvgMPH', d.mph],
+        ['AvgSecondsPerStop', d.avgStopSec]
+      ];
+      const csv = rows.map(r=>r.join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'rrecs_beta_record.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   </script>
 </body>
 </html>
